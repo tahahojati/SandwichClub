@@ -1,9 +1,15 @@
 package com.udacity.sandwichclub;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,24 +69,38 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
-        ((TextView) findViewById(R.id.origin_tv)).setText(mSandwich.getPlaceOfOrigin());
-        ((TextView) findViewById(R.id.description_tv)).setText(mSandwich.getDescription());
-        ((TextView) findViewById(R.id.ingredients_tv)).setText(collectionToString(mSandwich.getIngredients()));
-        ((TextView) findViewById(R.id.also_known_tv)).setText(collectionToString(mSandwich.getIngredients()));
+        setTvBoldLabelAndText(R.string.detail_place_of_origin_label, R.id.origin_tv, mSandwich.getPlaceOfOrigin(), " ");
+        setTvBoldLabelAndText(R.string.detail_description_label, R.id.description_tv, mSandwich.getDescription(), "\n");
+        setTvBoldLabelAndText(R.string.detail_ingredients_label, R.id.ingredients_tv,
+                collectionToString(mSandwich.getIngredients(), ", "), "\n");
+        setTvBoldLabelAndText(R.string.detail_also_known_as_label, R.id.also_known_tv,
+                collectionToString(mSandwich.getAlsoKnownAs(), ", "), " ");
     }
 
-    private String collectionToString(List<String> list) {
+    private String collectionToString(@NonNull List<String> list, @NonNull String delimiter) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return String.join(", ", list);
+            return String.join(delimiter, list);
         } else {
             StringBuilder sb = new StringBuilder();
             for (int index = 0; index < list.size(); ++index) {
                 sb.append(list.get(index));
                 if (index != list.size() - 1) {
-                    sb.append(", ");
+                    sb.append(delimiter);
                 }
             }
             return sb.toString();
         }
+    }
+
+    private void setTvBoldLabelAndText(int labelStringId, int tvResId, String valueText, @Nullable String separator) {
+        String label = getString(labelStringId);
+        SpannableStringBuilder ssb = new SpannableStringBuilder(label);
+        if (separator != null) {
+            ssb.append(separator);
+        }
+        ssb.append(valueText);
+
+        ssb.setSpan(new StyleSpan(Typeface.BOLD), 0, label.length() + separator.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        ((TextView) findViewById(tvResId)).setText(ssb);
     }
 }
