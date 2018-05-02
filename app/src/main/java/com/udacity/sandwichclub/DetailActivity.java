@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,6 +59,8 @@ public class DetailActivity extends AppCompatActivity {
         populateUI();
         Picasso.with(this)
                 .load(mSandwich.getImage())
+                .error(R.drawable.error)
+                .placeholder(R.drawable.placeholder)
                 .into(ingredientsIv);
 
         setTitle(mSandwich.getMainName());
@@ -72,9 +75,9 @@ public class DetailActivity extends AppCompatActivity {
         setTvBoldLabelAndText(R.string.detail_place_of_origin_label, R.id.origin_tv, mSandwich.getPlaceOfOrigin(), " ");
         setTvBoldLabelAndText(R.string.detail_description_label, R.id.description_tv, mSandwich.getDescription(), "\n");
         setTvBoldLabelAndText(R.string.detail_ingredients_label, R.id.ingredients_tv,
-                collectionToString(mSandwich.getIngredients(), ", "), "\n");
+                TextUtils.join(", ", mSandwich.getIngredients()), "\n");
         setTvBoldLabelAndText(R.string.detail_also_known_as_label, R.id.also_known_tv,
-                collectionToString(mSandwich.getAlsoKnownAs(), ", "), " ");
+                TextUtils.join(", ", mSandwich.getAlsoKnownAs()), " ");
     }
 
     private String collectionToString(@NonNull List<String> list, @NonNull String delimiter) {
