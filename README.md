@@ -1,26 +1,18 @@
-# Sandwich Club Project Starter Code
+# Sandwich Club
 
 ## Project Overview
-In this project, you will complete the **Sandwich Club** app to
-show the details of each sandwich once it is selected.
 
-## Why this Project
+Sandwich Club is an Android app that shows you savory Sandwiches!
 
-Building a layout and populating its fields from data received as JSON
-is a common task for Android Developers. Although JSON parsing is usually
-done using libraries, writing the JSON parsing for  this project will
-help you to better understand how it is processed.
+![Sandwich List](./readme/sandwich_club_list.png) &nbsp; ![Sandwich Detail](./readme/sandwich_club_detail.png)
 
-## What Will I Learn?
-Through this project, you will:
-- Learn how to submit projects for review
-- Practice JSON parsing to a model object
-- Design an activity layout
-- Populate all fields in the layout accordingly
+I wrote this app as part of my participation in Udacity's Android Developer Nanodegree.
 
-## How Do I Complete this Project?
-Download the [Sandwich Club app starter code.](https://github.com/udacity/sandwich-club-starter-code)
+## How to run
 
-Design the layout for the detail activity so the different elements
-display in a sensible way. Implement the JSON parsing in JsonUtils so it
-produces a Sandwich Object that can be used to populate the UI that you designed.
+1. Download [the debug apk](https://raw.githubusercontent.com/tahahojati/SandwichClub/master/app-debug.apk) to your phone.
+2. Go to your phone settings and enable "installing from unknown sources"
+3. Find the downloaded file and run it to install the app
+
+Alternatively, you can clone the repo and run the app on an emulator using AndroidStudio
+
